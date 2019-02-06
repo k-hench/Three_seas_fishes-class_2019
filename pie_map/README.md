@@ -1,0 +1,3 @@
+## something is missing here....
+
+To be able to execute the mapping script, you will need to download the Panama shape file (PAN_adm1.shp) from [www.gadm.org](http://gadm.org/country).

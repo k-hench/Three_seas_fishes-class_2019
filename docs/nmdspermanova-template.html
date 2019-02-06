@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>4 NMDS/PERMANOVA template | R stuff</title>
+  <meta name="description" content="4 NMDS/PERMANOVA template | R stuff">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="4 NMDS/PERMANOVA template | R stuff" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 NMDS/PERMANOVA template | R stuff" />
+  
+  
+  
+
+<meta name="author" content="Kosmas Hench">
+
+
+<meta name="date" content="2019-02-05">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="pie-map-template.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="../">Script repository</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="r-stuff.html"><a href="r-stuff.html"><i class="fa fa-check"></i><b>1</b> R stuff</a></li>
+<li class="chapter" data-level="2" data-path="box-plots-with-significance-codes.html"><a href="box-plots-with-significance-codes.html"><i class="fa fa-check"></i><b>2</b> Box plots with significance codes</a></li>
+<li class="chapter" data-level="3" data-path="pie-map-template.html"><a href="pie-map-template.html"><i class="fa fa-check"></i><b>3</b> Pie map template</a><ul>
+<li class="chapter" data-level="3.1" data-path="pie-map-template.html"><a href="pie-map-template.html#references"><i class="fa fa-check"></i><b>3.1</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nmdspermanova-template.html"><a href="nmdspermanova-template.html"><i class="fa fa-check"></i><b>4</b> NMDS/PERMANOVA template</a><ul>
+<li class="chapter" data-level="4.1" data-path="nmdspermanova-template.html"><a href="nmdspermanova-template.html#nmds"><i class="fa fa-check"></i><b>4.1</b> NMDS</a></li>
+<li class="chapter" data-level="4.2" data-path="nmdspermanova-template.html"><a href="nmdspermanova-template.html#permanova"><i class="fa fa-check"></i><b>4.2</b> PERMANOVA</a></li>
+<li class="chapter" data-level="4.3" data-path="nmdspermanova-template.html"><a href="nmdspermanova-template.html#references-1"><i class="fa fa-check"></i><b>4.3</b> References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+<li> <image src="../logo.svg" alt="Smiley face" style="width:100%; height:100px;"> </li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R stuff</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="nmdspermanova-template" class="section level1">
+<h1><span class="header-section-number">4</span> NMDS/PERMANOVA template</h1>
+<p>This template is based on the methods from the <span class="citation">Hench et al. (<a href="#ref-Hench17">2017</a>)</span> paper which compares hamlet observation at Puerto Rico reefs from 2000 (by Aguilar et al. 2003) and from 2017. The data that is used is completely made up though.</p>
+<p>Here we will generate NMDS plots and run a PERMANOVA to test the significance between the different clusters of three fictional reef types.</p>
+<p>Most of the analysis makes use of the functions provided by the <strong>vegan</strong> package (mostly <em>metaMDS()</em> and <em>adonis()</em>). Plotting is done using the <strong>ggplot2</strong> package (included in <strong>tidyverse</strong>) with the extension packages <strong>cowplot</strong>,<strong>ggalt</strong> and <strong>hrbrthemes</strong>.</p>
+<hr />
+<p>To start our <strong>R</strong> session we have to <strong>load the required R packages</strong> and set up our working environment:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)
+
+<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(cowplot)
+<span class="kw">library</span>(ggalt)
+
+darken &lt;-<span class="st"> </span><span class="cf">function</span>(color, <span class="dt">factor=</span><span class="fl">1.4</span>){
+  col &lt;-<span class="st"> </span><span class="kw">col2rgb</span>(color)
+  col &lt;-<span class="st"> </span>col<span class="op">/</span>factor
+  col &lt;-<span class="st"> </span><span class="kw">rgb</span>(<span class="kw">t</span>(col), <span class="dt">maxColorValue=</span><span class="dv">255</span>)
+  col
+}</code></pre></div>
+<p>Then we have to <strong>read in the data</strong> (provided in the data folder). The original data contains the observations as well as meta data (sampling location and and sample group):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&#39;permanova/data/more_sampling_spots.csv&#39;</span>, <span class="dt">delim =</span> <span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Latittude,<span class="op">-</span>Longitude)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">spot</th>
+<th align="left">group</th>
+<th align="right">spec1</th>
+<th align="right">spec2</th>
+<th align="right">spec3</th>
+<th align="right">spec4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">STRI_point</td>
+<td align="left">gr1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Casa_blanca</td>
+<td align="left">gr1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Punta_Juan</td>
+<td align="left">gr2</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Punta_Caracol</td>
+<td align="left">gr1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Mangrove_point</td>
+<td align="left">gr3</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Moguls</td>
+<td align="left">gr2</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Rhino_reef</td>
+<td align="left">gr2</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Sophies_reef</td>
+<td align="left">gr1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Sunken_catamaran</td>
+<td align="left">gr3</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">San_Cristobal</td>
+<td align="left">gr3</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Casa_verde</td>
+<td align="left">gr3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Solarte_sur</td>
+<td align="left">gr2</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">3</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div id="nmds" class="section level2">
+<h2><span class="header-section-number">4.1</span> NMDS</h2>
+<hr />
+<p>To be able <strong>execute the NMDS</strong> the species observations need to be exported as a <em>matrix object</em>. Here we are going to run the NMDS based on the Bray-Curtis distance between the samples using a max of 500 iterations</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataM &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(spec1<span class="op">:</span>spec4)  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.matrix</span>()
+<span class="kw">rownames</span>(dataM) &lt;-<span class="st"> </span>data<span class="op">$</span>spot
+
+NMDSout &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(dataM,<span class="dt">k=</span><span class="dv">2</span>,<span class="dt">trymax=</span><span class="dv">500</span>,<span class="dt">distance=</span><span class="st">&#39;bray&#39;</span>)</code></pre></div>
+<p>After we ran the NMDS we have to export the scores both of the samples as well as of the species for plotting in <strong>ggplot2</strong>:</p>
+<p>First, we extract the sample scores to a <em>data.frame</em> object using the <em>scores()</em> function from the <strong>vegan</strong> package and add a column to include the samples names.</p>
+<p>Than we do the same for the species.</p>
+<p>Finally, we merge the sample scores back to our original data set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">scores</span>(NMDSout))
+data.scores<span class="op">$</span>spot &lt;-<span class="st"> </span><span class="kw">rownames</span>(data.scores)
+
+species.scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">scores</span>(NMDSout, <span class="st">&quot;species&quot;</span>))
+species.scores<span class="op">$</span>species &lt;-<span class="st"> </span><span class="kw">rownames</span>(species.scores)
+
+data &lt;-<span class="st"> </span><span class="kw">merge</span>(data,data.scores,<span class="dt">by=</span><span class="st">&#39;spot&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()</code></pre></div>
+<p>Now, we can <strong>plot the results of the NMDS</strong> using <strong>ggplot2</strong>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initializing the plot</span>
+<span class="kw">ggplot</span>(data,<span class="kw">aes</span>(<span class="dt">x=</span>NMDS1,<span class="dt">y=</span>NMDS2,<span class="dt">group=</span>group)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># fixed aspect ration for x and y scale</span>
+<span class="st">  </span><span class="kw">coord_equal</span>() <span class="op">+</span>
+<span class="st">  </span><span class="co"># adding line ad x = 0 and y = 0</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>,<span class="dt">color=</span><span class="st">&#39;lightgray&#39;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>,<span class="dt">color=</span><span class="st">&#39;lightgray&#39;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="co"># add the species labels</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">inherit.aes =</span> F,<span class="dt">data=</span>species.scores,
+            <span class="kw">aes</span>(<span class="dt">x=</span>NMDS1,<span class="dt">y=</span>NMDS2,<span class="dt">label=</span>species),
+            <span class="dt">col=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="co"># add the sample positions</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span>group),<span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="co"># add the outer hull of the three groups (function from the ggalt package)</span>
+<span class="st">  </span><span class="kw">geom_encircle</span>(<span class="kw">aes</span>(<span class="dt">colour=</span>group,<span class="dt">fill=</span>group),
+                <span class="dt">s_shape=</span><span class="dv">1</span>,<span class="dt">alpha=</span><span class="fl">0.2</span>,<span class="dt">size=</span><span class="dv">1</span>, <span class="dt">expand=</span><span class="dv">0</span>)<span class="op">+</span>
+<span class="st">  </span><span class="co"># add the sample labels</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>spot),<span class="dt">size=</span><span class="dv">4</span>,<span class="dt">vjust=</span><span class="dv">0</span>,<span class="dt">nudge_y=</span>.<span class="dv">02</span>) <span class="op">+</span>
+<span class="st">  </span><span class="co"># change the coler map (from the hrbrthemes package)</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_minimal</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())</code></pre></div>
+<p><img src="permanova_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+<div id="permanova" class="section level2">
+<h2><span class="header-section-number">4.2</span> PERMANOVA</h2>
+<p>Although we can visually inspect our NMDS plot for differences between our 3 groups, we do not know yet whether those differences are statistically significant.</p>
+<p>To find out about this we need to run a permanova on our data. Yet, before we start, we need to check if the assumptions for permanova are met by the data <span class="citation">(Anderson <a href="#ref-Anderson01">2001</a>)</span>:</p>
+<center>
+<em>“The only assumption of the test is that […] the observations are independent and that they have similar distributions”</em>
+</center>
+<p>To check for homogeneous dispersion, we can either use a statistical test (permutation test) or visualize the dispersion.</p>
+<p>Either way, first we need to create the distance matrix (<em>again</em>, since it was not stored before but only computed internally within the <em>metaMDS()</em> function…).</p>
+<p>Then we also need to find out in which order the sites are stored within the distance matrix (the order may differ from the original data) to assign the groups correctly. Than the beta dispersion can be computed and compared.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  compute Bray-Curtis distance</span>
+dM &lt;-<span class="st"> </span><span class="kw">vegdist</span>(dataM,<span class="dt">distance=</span><span class="st">&#39;bray&#39;</span>)
+<span class="co"># get order of samples</span>
+gO &lt;-<span class="st"> </span>data[<span class="kw">match</span>(<span class="kw">labels</span>(dM),data<span class="op">$</span>spot),]<span class="op">$</span>group
+<span class="co"># compute beta dispersion of the 3 groups</span>
+betaM &lt;-<span class="st"> </span><span class="kw">betadisper</span>(dM,gO)
+<span class="co"># statistical test for homogeneous dispersion</span>
+<span class="kw">permutest</span>(betaM)</code></pre></div>
+<pre><code>## 
+## Permutation test for homogeneity of multivariate dispersions
+## Permutation: free
+## Number of permutations: 999
+## 
+## Response: Distances
+##           Df   Sum Sq   Mean Sq      F N.Perm Pr(&gt;F)
+## Groups     2 0.002086 0.0010430 0.1771    999  0.835
+## Residuals  9 0.053012 0.0058903</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visual check for homogeneous dispersion</span>
+<span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">group=</span>betaM<span class="op">$</span>group,<span class="dt">distance=</span>betaM<span class="op">$</span>distances),
+       <span class="kw">aes</span>(<span class="dt">x=</span>group,<span class="dt">fill=</span>group,<span class="dt">y=</span>distance))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Beta dispersion&#39;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="permanova_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>If the dispersion is sufficiently homogeneous, we can <strong>finally run the PERMANOVA</strong> on the data (using the <em>adonis()</em> function from the vegan package):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">permM &lt;-<span class="st"> </span><span class="kw">adonis</span>(<span class="dt">formula =</span> dM <span class="op">~</span><span class="st"> </span>gO, <span class="dt">permutations =</span> <span class="dv">1999</span>, <span class="dt">method =</span> <span class="st">&#39;bray&#39;</span>)
+<span class="kw">print</span>(permM)</code></pre></div>
+<pre><code>## 
+## Call:
+## adonis(formula = dM ~ gO, permutations = 1999, method = &quot;bray&quot;) 
+## 
+## Permutation: free
+## Number of permutations: 1999
+## 
+## Terms added sequentially (first to last)
+## 
+##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(&gt;F)    
+## gO         2   0.87737 0.43869  13.183 0.74552  5e-04 ***
+## Residuals  9   0.29948 0.03328         0.25448           
+## Total     11   1.17685                 1.00000           
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>A last thing we might want to do, is to get an overview over the Permutation Results from our PERMANOVA. We can compare our real case to the distribution created by the permutations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_clr &lt;-<span class="st"> </span><span class="kw">rgb</span>(<span class="dv">1</span>,.<span class="dv">5</span>,<span class="dv">0</span>)
+<span class="co"># export the summary statistics from the PERMANOVA run</span>
+permOUT &lt;-<span class="st"> </span><span class="kw">permustats</span>(permM)
+<span class="co"># transform into da data.frame</span>
+permDF &lt;-<span class="st"> </span>permOUT<span class="op">$</span>permutations <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setNames</span>(., <span class="dt">nm =</span> <span class="st">&#39;Permutations&#39;</span>)
+
+<span class="co"># plotting</span>
+<span class="kw">ggplot</span>(permDF,<span class="kw">aes</span>(<span class="dt">x=</span>Permutations))<span class="op">+</span>
+<span class="st">  </span><span class="co"># add the distribution frm the permutations</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">fill=</span>plot_clr)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y=</span><span class="dv">0</span>),<span class="dt">shape=</span><span class="dv">21</span>,<span class="dt">fill=</span><span class="kw">darken</span>(plot_clr,<span class="fl">2.5</span>))<span class="op">+</span>
+<span class="st">  </span><span class="co"># add our realized value</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> permOUT<span class="op">$</span>statistic,<span class="dt">col=</span><span class="kw">darken</span>(plot_clr,<span class="fl">2.5</span>))<span class="op">+</span>
+<span class="st">  </span><span class="co"># expand x scale </span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">limits =</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">15</span>))<span class="op">+</span>
+<span class="st">  </span><span class="co"># plot title</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Permutation test&#39;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="permanova_files/figure-html/unnamed-chunk-8-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="references-1" class="section level2">
+<h2><span class="header-section-number">4.3</span> References</h2>
+
+<div id="refs" class="references">
+<div>
+<p>Anderson, Marti J. 2001. “A New Method for Non-Parametric Multivariate Analysis of Variance.” <em>Austral Ecology</em> 26 (1). Blackwell Science Pty: 32–46. doi:<a href="https://doi.org/10.1111/j.1442-9993.2001.01070.pp.x">10.1111/j.1442-9993.2001.01070.pp.x</a>.</p>
+</div>
+<div>
+<p>Hench, K., W. O. Mcmillan, R. Betancur-R, and O. Puebla. 2017. “Temporal Changes in Hamlet Communities (Hypoplectrus Spp., Serranidae) over 17 Years.” <em>Journal of Fish Biology</em> 91 (5). Blackwell Publishing Ltd: 1475–90. doi:<a href="https://doi.org/10.1111/jfb.13481">10.1111/jfb.13481</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Hench17">
+<p>Hench, K., W. O. Mcmillan, R. Betancur-R, and O. Puebla. 2017. “Temporal Changes in Hamlet Communities (Hypoplectrus Spp., Serranidae) over 17 Years.” <em>Journal of Fish Biology</em> 91 (5). Blackwell Publishing Ltd: 1475–90. doi:<a href="https://doi.org/10.1111/jfb.13481">10.1111/jfb.13481</a>.</p>
+</div>
+<div id="ref-Anderson01">
+<p>Anderson, Marti J. 2001. “A New Method for Non-Parametric Multivariate Analysis of Variance.” <em>Austral Ecology</em> 26 (1). Blackwell Science Pty: 32–46. doi:<a href="https://doi.org/10.1111/j.1442-9993.2001.01070.pp.x">10.1111/j.1442-9993.2001.01070.pp.x</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pie-map-template.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

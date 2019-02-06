@@ -33,5 +33,5 @@ Pleas note that I can not redistribute the shapefile needed for the mapping scri
 
 ------------------------------------------------------------------------
 <p align="center">
-<img width=30%, src="./logo.svg">
+<img width=25%, src="./logo.svg">
 </p>
