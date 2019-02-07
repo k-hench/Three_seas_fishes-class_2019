@@ -2,4 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+pie_map/data/geography/PAN_adm*
 !pie_map/data/geography/README.md
