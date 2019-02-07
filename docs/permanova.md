@@ -1,10 +1,9 @@
 ---
-title: "NMDS/PERMANOVA template"
-author: "Kosmas Hench"
-date: "February 5, 2019"
 output: html_document
-bibliography: bibliography.bib
+editor_options:
+  chunk_output_type: console
 ---
+
 # NMDS/PERMANOVA template
 
 This template is based on the methods from the @Hench17 paper which compares hamlet observation at Puerto Rico reefs from 2000 (by Aguilar et al. 2003) and from 2017. The data that is used is completely made up though.
@@ -58,8 +57,6 @@ Solarte_sur        gr2          5       0       2       3
 ------
 
 ## NMDS
-
-------
 
 To be able **execute the NMDS** the species observations need to be exported as a *matrix object*. Here we are going to run the NMDS based on the Bray-Curtis distance between the samples using a max of 500 iterations
 
@@ -156,7 +153,7 @@ permutest(betaM)
 ## 
 ## Response: Distances
 ##           Df   Sum Sq   Mean Sq      F N.Perm Pr(>F)
-## Groups     2 0.002086 0.0010430 0.1771    999  0.835
+## Groups     2 0.002086 0.0010430 0.1771    999   0.82
 ## Residuals  9 0.053012 0.0058903
 ```
 
@@ -222,5 +219,3 @@ ggplot(permDF,aes(x=Permutations))+
 ```
 
 <img src="permanova_files/figure-html/unnamed-chunk-8-1.png" width="80%" style="display: block; margin: auto;" />
-
-## References

@@ -1,7 +1,7 @@
 ---
 title: "R stuff"
 author: "Kosmas Hench"
-date: "`r Sys.Date()`"
+date: "2019-02-06"
 documentclass: book
 bibliography: [bibliography.bib]
 biblio-style: apalike
@@ -11,7 +11,6 @@ link-citations: yes
 
 This folder contains a small selection of R stuff:
 
-- how to plot [boxplots with significance codes](signiv_boxplot.html) using **ggplot2**
 - how to create a [map including piecharts](pieMap/pieMap.html)
 - how to do an [NMDS plot and run a PERMANOVA](permanova/Permanova-tutorial.html)
 

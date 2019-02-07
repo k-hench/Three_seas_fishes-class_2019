@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+pie_map/data/geography/*
+!pie_map/data/geography/README.md

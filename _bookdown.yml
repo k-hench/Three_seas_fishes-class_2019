@@ -2,7 +2,7 @@ book_filename: "Three seas fishes class 2019"
 chapter_name: ""
 repo: https://github.com/k-hench/Three_seas_fishes-class_2019
 output_dir: docs
-rmd_files: ["R_stuff.Rmd","signif_boxplot.Rmd","pie_map.Rmd","permanova.Rmd"]
+rmd_files: ["index.Rmd","pie_map.Rmd","permanova.Rmd","refs.Rmd"]
 clean: [bibliography.bib]
 new_session: yes
 delete_merged_file: True

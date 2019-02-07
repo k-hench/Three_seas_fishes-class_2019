@@ -1,9 +1,7 @@
 ---
-title: "pie map template"
-author: "Kosmas Hench"
-date: "February 5, 2019"
 output: html_document
-bibliography: bibliography.bib
+editor_options:
+  chunk_output_type: console
 ---
 # Pie map template
 
@@ -136,5 +134,3 @@ If we want, we can now export the map and tweak last details using inkscape or a
 ```r
 ggsave('pie_map.pdf',width = 8,height = 6,device=cairo_pdf)
 ```
-
-## References
