@@ -153,7 +153,7 @@ permutest(betaM)
 ## 
 ## Response: Distances
 ##           Df   Sum Sq   Mean Sq      F N.Perm Pr(>F)
-## Groups     2 0.002086 0.0010430 0.1771    999  0.851
+## Groups     2 0.002086 0.0010430 0.1771    999  0.833
 ## Residuals  9 0.053012 0.0058903
 ```
 

@@ -7,7 +7,7 @@ bibliography: [bibliography.bib]
 biblio-style: apalike
 link-citations: yes
 ---
-# Intro:
+# Intro
 
 Here are some scripts to help with the data analysis:
 
