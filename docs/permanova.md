@@ -153,7 +153,7 @@ permutest(betaM)
 ## 
 ## Response: Distances
 ##           Df   Sum Sq   Mean Sq      F N.Perm Pr(>F)
-## Groups     2 0.002086 0.0010430 0.1771    999  0.858
+## Groups     2 0.002086 0.0010430 0.1771    999  0.829
 ## Residuals  9 0.053012 0.0058903
 ```
 
@@ -186,10 +186,10 @@ print(permM)
 ## 
 ## Terms added sequentially (first to last)
 ## 
-##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)   
-## gO         2   0.87737 0.43869  13.183 0.74552 0.0015 **
-## Residuals  9   0.29948 0.03328         0.25448          
-## Total     11   1.17685                 1.00000          
+##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+## gO         2   0.87737 0.43869  13.183 0.74552  5e-04 ***
+## Residuals  9   0.29948 0.03328         0.25448           
+## Total     11   1.17685                 1.00000           
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```

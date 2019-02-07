@@ -333,7 +333,7 @@ betaM &lt;-<span class="st"> </span><span class="kw">betadisper</span>(dM,gO)
 ## 
 ## Response: Distances
 ##           Df   Sum Sq   Mean Sq      F N.Perm Pr(&gt;F)
-## Groups     2 0.002086 0.0010430 0.1771    999  0.858
+## Groups     2 0.002086 0.0010430 0.1771    999  0.829
 ## Residuals  9 0.053012 0.0058903</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visual check for homogeneous dispersion</span>
 <span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">group=</span>betaM<span class="op">$</span>group,<span class="dt">distance=</span>betaM<span class="op">$</span>distances),
@@ -354,10 +354,10 @@ betaM &lt;-<span class="st"> </span><span class="kw">betadisper</span>(dM,gO)
 ## 
 ## Terms added sequentially (first to last)
 ## 
-##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(&gt;F)   
-## gO         2   0.87737 0.43869  13.183 0.74552 0.0015 **
-## Residuals  9   0.29948 0.03328         0.25448          
-## Total     11   1.17685                 1.00000          
+##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(&gt;F)    
+## gO         2   0.87737 0.43869  13.183 0.74552  5e-04 ***
+## Residuals  9   0.29948 0.03328         0.25448           
+## Total     11   1.17685                 1.00000           
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>A last thing we might want to do, is to get an overview over the Permutation Results from our PERMANOVA. We can compare our real case to the distribution created by the permutations:</p>
