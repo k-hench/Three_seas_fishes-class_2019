@@ -6,7 +6,7 @@ This folder contains a small selection of R stuff:
 -   how to do an **NMDS** plot and run a
     **PERMANOVA**
 
-To look at the **R** scripts go use [this link](https://k-hench.github.io/Three_seas_fishes-class_2019/index.html).
+To look at the **R** scripts use [this link](https://k-hench.github.io/Three_seas_fishes-class_2019/index.html).
 
 ------------------------------------------------------------------------
 
