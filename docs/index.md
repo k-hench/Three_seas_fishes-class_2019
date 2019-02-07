@@ -7,9 +7,9 @@ bibliography: [bibliography.bib]
 biblio-style: apalike
 link-citations: yes
 ---
-# R stuff
+# 3 Seas 37
 
-This folder contains a small selection of R stuff:
+Here are some scripts to help with the data analysis:
 
 - how to create a [map including piecharts](pieMap/pieMap.html)
 - how to do an [NMDS plot and run a PERMANOVA](permanova/Permanova-tutorial.html)
