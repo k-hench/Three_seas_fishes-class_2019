@@ -104,7 +104,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="../">Script repository</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 3 Seas 37</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Intro:</a></li>
 <li class="chapter" data-level="2" data-path="pie-map-template.html"><a href="pie-map-template.html"><i class="fa fa-check"></i><b>2</b> Pie map template</a></li>
 <li class="chapter" data-level="3" data-path="nmdspermanova-template.html"><a href="nmdspermanova-template.html"><i class="fa fa-check"></i><b>3</b> NMDS/PERMANOVA template</a><ul>
 <li class="chapter" data-level="3.1" data-path="nmdspermanova-template.html"><a href="nmdspermanova-template.html#nmds"><i class="fa fa-check"></i><b>3.1</b> NMDS</a></li>
@@ -333,7 +333,7 @@ betaM &lt;-<span class="st"> </span><span class="kw">betadisper</span>(dM,gO)
 ## 
 ## Response: Distances
 ##           Df   Sum Sq   Mean Sq      F N.Perm Pr(&gt;F)
-## Groups     2 0.002086 0.0010430 0.1771    999  0.835
+## Groups     2 0.002086 0.0010430 0.1771    999  0.851
 ## Residuals  9 0.053012 0.0058903</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visual check for homogeneous dispersion</span>
 <span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">group=</span>betaM<span class="op">$</span>group,<span class="dt">distance=</span>betaM<span class="op">$</span>distances),

@@ -7,7 +7,7 @@ bibliography: [bibliography.bib]
 biblio-style: apalike
 link-citations: yes
 ---
-# 3 Seas 37
+# Intro:
 
 Here are some scripts to help with the data analysis:
 
@@ -25,3 +25,5 @@ Further helpful information on **ggplot2** can be found at:
 Definitively worth a look is also this platform of [**ggplot** extensions](http://www.ggplot2-exts.org/).
 
 ------
+
+Further **really** useful help on **R** is given by Hadley Wickham in his online book ["R for Data Science"](https://r4ds.had.co.nz/introduction.html).
