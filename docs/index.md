@@ -1,7 +1,7 @@
 ---
 title: "3 Seas 37 - Fishes"
 author: "Kosmas Hench"
-date: "2019-02-06"
+date: "2019-02-07"
 documentclass: book
 bibliography: [bibliography.bib]
 biblio-style: apalike
@@ -14,6 +14,25 @@ Here are some scripts to help with the data analysis:
 - how to create a [map including piecharts](pie-map-template.html)
 - how to do an [NMDS plot and run a PERMANOVA](nmdspermanova-template.html)
 
+To run these, please make sure you have the following **R** packages installed:
+
+
+```r
+# Fundamental packages
+install.packages("tidyverse")
+install.packages("vegan")
+# ggplot extensions
+install.packages("ggalt")
+install.packages("scatterpie")
+install.packages("cowplot")
+# Mapping packages
+install.packages("ggmap")
+install.packages("sf")
+install.packages("maptools")
+install.packages("rnaturalearth")
+install.packages("rnaturalearthdata")
+```
+
 ------
 
 Further helpful information on **ggplot2** can be found at:
@@ -22,7 +41,7 @@ Further helpful information on **ggplot2** can be found at:
 - a [tutorial by the Harvad University](http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html#introduction)
 - this [page by Zev Ross](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/)
 
-Definitively worth a look is also this platform of [**ggplot** extensions](http://www.ggplot2-exts.org/).
+Also, this platform of [**ggplot** extensions](http://www.ggplot2-exts.org/) is definitively worth a look.
 
 ------
 

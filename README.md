@@ -18,8 +18,8 @@ Further helpful information on **ggplot2** can be found at:
 -   this [page by Zev
     Ross](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/)
 
-Definitively worth a look is also this platform of [**ggplot**
-extensions](http://www.ggplot2-exts.org/).
+Also, this platform of [**ggplot**
+extensions](http://www.ggplot2-exts.org/) is definitively worth a look.
 
 ------------------------------------------------------------------------
 
