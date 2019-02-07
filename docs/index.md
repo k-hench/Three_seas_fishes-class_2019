@@ -1,7 +1,4 @@
 ---
-title: "R stuff"
-author: "Kosmas Hench"
-date: "2019-02-06"
 documentclass: book
 bibliography: [bibliography.bib]
 biblio-style: apalike
