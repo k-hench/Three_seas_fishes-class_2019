@@ -11,8 +11,8 @@ link-citations: yes
 
 Here are some scripts to help with the data analysis:
 
-- how to create a [map including piecharts](pieMap/pieMap.html)
-- how to do an [NMDS plot and run a PERMANOVA](permanova/Permanova-tutorial.html)
+- how to create a [map including piecharts](pie-map-template.html)
+- how to do an [NMDS plot and run a PERMANOVA](nmdspermanova-template.html)
 
 ------
 
