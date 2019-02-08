@@ -35,6 +35,58 @@ install.packages("maptools")
 install.packages("rnaturalearth")
 install.packages("rnaturalearthdata")
 ```
+------
+
+Following the conventions of the [*tidyverse*](https://www.tidyverse.org/), some aspects that you might be used from base **R** might look a little different:
+
+First of all, the *tidyverse* comes with a few functions that replace common standard functions to achieve a more consistent behavior than base **R**. This means that here we will use for example `read_delim()` (*tidyverse*) instead of `read.table()` (base **R**).
+
+The second thing that migh need some getting used to is the use of *the pipe* (`%>%`):
+
+The pipe is an elegant way of connecting severeal functions that are executed one after the other. If we for example have a silly function that simply addes 1 to an input value, there are several ways to get from 1 to 4:
+
+
+
+```r
+add_1 <- function(x){x + 1}
+
+a <- 1
+b <- add_1(a)
+c <- add_1(b)
+d <- add_1(c)
+d
+```
+
+```
+## [1] 4
+```
+
+
+```r
+add_1(add_1(add_1(1)))
+```
+
+```
+## [1] 4
+```
+
+
+```r
+1 %>%
+  add_1() %>%
+  add_1() %>%
+  add_1()
+```
+
+```
+## [1] 4
+```
+
+Of these three versions I usually find the pipe to be most clear and easily understandable way (especially if you try to make sense of your code when you come back a little while later).
+
+Therefore you will see many pipes thoughout the scripts.
+
+Further **really** useful help on **R** is given by Hadley Wickham in his online book ["R for Data Science"](https://r4ds.had.co.nz/introduction.html).
 
 ------
 
@@ -46,6 +98,4 @@ Further helpful information on **ggplot2** can be found at:
 
 Also, this platform of [**ggplot** extensions](http://www.ggplot2-exts.org/) is definitively worth a look.
 
-------
 
-Further **really** useful help on **R** is given by Hadley Wickham in his online book ["R for Data Science"](https://r4ds.had.co.nz/introduction.html).

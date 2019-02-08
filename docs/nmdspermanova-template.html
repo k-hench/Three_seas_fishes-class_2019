@@ -136,7 +136,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">3</span> NMDS/PERMANOVA template</h1>
 <p>This template is based on the methods from the <span class="citation">Hench et al. (<a href="#ref-Hench17">2017</a>)</span> paper which compares hamlet observation at Puerto Rico reefs from 2000 (by Aguilar et al. 2003) and from 2017. The data that is used is completely made up though.</p>
 <p>Here we will generate NMDS plots and run a PERMANOVA to test the significance between the different clusters of three fictional reef types.</p>
-<p>Most of the analysis makes use of the functions provided by the <strong>vegan</strong> package (mostly <em>metaMDS()</em> and <em>adonis()</em>). Plotting is done using the <strong>ggplot2</strong> package (included in <strong>tidyverse</strong>) with the extension packages <strong>cowplot</strong>,<strong>ggalt</strong> and <strong>hrbrthemes</strong>.</p>
+<p>Most of the analysis makes use of the functions provided by the <strong>vegan</strong> package (mostly <code>metaMDS()</code> and <code>adonis()</code>). Plotting is done using the <strong>ggplot2</strong> package (included in <strong>tidyverse</strong>) with the extension packages <strong>cowplot</strong> and <strong>ggalt</strong>.</p>
 <hr />
 <p>To start our <strong>R</strong> session we have to <strong>load the required R packages</strong> and set up our working environment:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vegan)
@@ -145,14 +145,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">library</span>(cowplot)
 <span class="kw">library</span>(ggalt)
 
-darken &lt;-<span class="st"> </span><span class="cf">function</span>(color, <span class="dt">factor=</span><span class="fl">1.4</span>){
+darken &lt;-<span class="st"> </span><span class="cf">function</span>(color, <span class="dt">factor =</span> <span class="fl">1.4</span>){
   col &lt;-<span class="st"> </span><span class="kw">col2rgb</span>(color)
   col &lt;-<span class="st"> </span>col<span class="op">/</span>factor
-  col &lt;-<span class="st"> </span><span class="kw">rgb</span>(<span class="kw">t</span>(col), <span class="dt">maxColorValue=</span><span class="dv">255</span>)
+  col &lt;-<span class="st"> </span><span class="kw">rgb</span>(<span class="kw">t</span>(col), <span class="dt">maxColorValue =</span> <span class="dv">255</span>)
   col
 }</code></pre></div>
 <p>Then we have to <strong>read in the data</strong> (provided in the data folder). The original data contains the observations as well as meta data (sampling location and and sample group):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&#39;permanova/data/more_sampling_spots.csv&#39;</span>, <span class="dt">delim =</span> <span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Latittude,<span class="op">-</span>Longitude)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&#39;permanova/data/more_sampling_spots.csv&#39;</span>, <span class="dt">delim =</span> <span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Latittude, <span class="op">-</span>Longitude)</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -266,13 +266,13 @@ darken &lt;-<span class="st"> </span><span class="cf">function</span>(color, <sp
 <hr />
 <div id="nmds" class="section level2">
 <h2><span class="header-section-number">3.1</span> NMDS</h2>
-<p>To be able <strong>execute the NMDS</strong> the species observations need to be exported as a <em>matrix object</em>. Here we are going to run the NMDS based on the Bray-Curtis distance between the samples using a max of 500 iterations</p>
+<p>To be able <strong>execute the NMDS</strong> the species observations need to be exported as a <em>matrix object</em>. Here we are going to run the NMDS based on the Bray-Curtis distance between the samples using a max of 500 iterations.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataM &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(spec1<span class="op">:</span>spec4)  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.matrix</span>()
 <span class="kw">rownames</span>(dataM) &lt;-<span class="st"> </span>data<span class="op">$</span>spot
 
-NMDSout &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(dataM,<span class="dt">k=</span><span class="dv">2</span>,<span class="dt">trymax=</span><span class="dv">500</span>,<span class="dt">distance=</span><span class="st">&#39;bray&#39;</span>)</code></pre></div>
-<p>After we ran the NMDS we have to export the scores both of the samples as well as of the species for plotting in <strong>ggplot2</strong>:</p>
-<p>First, we extract the sample scores to a <em>data.frame</em> object using the <em>scores()</em> function from the <strong>vegan</strong> package and add a column to include the samples names.</p>
+NMDSout &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(dataM, <span class="dt">k =</span> <span class="dv">2</span>, <span class="dt">trymax =</span> <span class="dv">500</span>, <span class="dt">distance =</span> <span class="st">&#39;bray&#39;</span>)</code></pre></div>
+<p>After we ran the NMDS, we have to export the scores both of the samples as well as of the species for plotting in <strong>ggplot2</strong>:</p>
+<p>First, we extract the sample scores to a <code>data.frame</code> object using the <code>scores()</code> function from the <strong>vegan</strong> package and add a column to include the samples names.</p>
 <p>Than we do the same for the species.</p>
 <p>Finally, we merge the sample scores back to our original data set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">scores</span>(NMDSout))
@@ -281,28 +281,29 @@ data.scores<span class="op">$</span>spot &lt;-<span class="st"> </span><span cla
 species.scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">scores</span>(NMDSout, <span class="st">&quot;species&quot;</span>))
 species.scores<span class="op">$</span>species &lt;-<span class="st"> </span><span class="kw">rownames</span>(species.scores)
 
-data &lt;-<span class="st"> </span><span class="kw">merge</span>(data,data.scores,<span class="dt">by=</span><span class="st">&#39;spot&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>()</code></pre></div>
+data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(data.scores)</code></pre></div>
+<pre><code>## Joining, by = &quot;spot&quot;</code></pre>
 <p>Now, we can <strong>plot the results of the NMDS</strong> using <strong>ggplot2</strong>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># initializing the plot</span>
-<span class="kw">ggplot</span>(data,<span class="kw">aes</span>(<span class="dt">x=</span>NMDS1,<span class="dt">y=</span>NMDS2,<span class="dt">group=</span>group)) <span class="op">+</span><span class="st"> </span>
+<span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x =</span> NMDS1, <span class="dt">y =</span> NMDS2, <span class="dt">group =</span> group)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="co"># fixed aspect ration for x and y scale</span>
 <span class="st">  </span><span class="kw">coord_equal</span>() <span class="op">+</span>
 <span class="st">  </span><span class="co"># adding line ad x = 0 and y = 0</span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>,<span class="dt">color=</span><span class="st">&#39;lightgray&#39;</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>,<span class="dt">color=</span><span class="st">&#39;lightgray&#39;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&#39;lightgray&#39;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&#39;lightgray&#39;</span>)<span class="op">+</span>
 <span class="st">  </span><span class="co"># add the species labels</span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">inherit.aes =</span> F,<span class="dt">data=</span>species.scores,
-            <span class="kw">aes</span>(<span class="dt">x=</span>NMDS1,<span class="dt">y=</span>NMDS2,<span class="dt">label=</span>species),
-            <span class="dt">col=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">inherit.aes =</span> F, <span class="dt">data =</span> species.scores, 
+            <span class="kw">aes</span>(<span class="dt">x =</span> NMDS1, <span class="dt">y =</span> NMDS2, <span class="dt">label =</span> species), 
+            <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="co"># add the sample positions</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span>group),<span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> group), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
 <span class="st">  </span><span class="co"># add the outer hull of the three groups (function from the ggalt package)</span>
-<span class="st">  </span><span class="kw">geom_encircle</span>(<span class="kw">aes</span>(<span class="dt">colour=</span>group,<span class="dt">fill=</span>group),
-                <span class="dt">s_shape=</span><span class="dv">1</span>,<span class="dt">alpha=</span><span class="fl">0.2</span>,<span class="dt">size=</span><span class="dv">1</span>, <span class="dt">expand=</span><span class="dv">0</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_encircle</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> group, <span class="dt">fill =</span> group), 
+                <span class="dt">s_shape =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.2</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">expand =</span> <span class="dv">0</span>)<span class="op">+</span>
 <span class="st">  </span><span class="co"># add the sample labels</span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>spot),<span class="dt">size=</span><span class="dv">4</span>,<span class="dt">vjust=</span><span class="dv">0</span>,<span class="dt">nudge_y=</span>.<span class="dv">02</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> spot), <span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">vjust =</span> <span class="dv">0</span>, <span class="dt">nudge_y =</span> .<span class="dv">02</span>) <span class="op">+</span>
 <span class="st">  </span><span class="co"># change the coler map (from the hrbrthemes package)</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand=</span><span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(.<span class="dv">1</span>, .<span class="dv">1</span>))<span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>()<span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>())</code></pre></div>
 <p><img src="permanova_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
@@ -316,14 +317,14 @@ data &lt;-<span class="st"> </span><span class="kw">merge</span>(data,data.score
 <em>“The only assumption of the test is that […] the observations are independent and that they have similar distributions”</em>
 </center>
 <p>To check for homogeneous dispersion, we can either use a statistical test (permutation test) or visualize the dispersion.</p>
-<p>Either way, first we need to create the distance matrix (<em>again</em>, since it was not stored before but only computed internally within the <em>metaMDS()</em> function…).</p>
+<p>Either way, first we need to create the distance matrix (<em>again</em>, since it was not stored before but only computed internally within the <code>metaMDS()</code> function…).</p>
 <p>Then we also need to find out in which order the sites are stored within the distance matrix (the order may differ from the original data) to assign the groups correctly. Than the beta dispersion can be computed and compared.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  compute Bray-Curtis distance</span>
-dM &lt;-<span class="st"> </span><span class="kw">vegdist</span>(dataM,<span class="dt">distance=</span><span class="st">&#39;bray&#39;</span>)
+dM &lt;-<span class="st"> </span><span class="kw">vegdist</span>(dataM, <span class="dt">distance =</span> <span class="st">&#39;bray&#39;</span>)
 <span class="co"># get order of samples</span>
-gO &lt;-<span class="st"> </span>data[<span class="kw">match</span>(<span class="kw">labels</span>(dM),data<span class="op">$</span>spot),]<span class="op">$</span>group
+gO &lt;-<span class="st"> </span>data[<span class="kw">match</span>(<span class="kw">labels</span>(dM), data<span class="op">$</span>spot), ]<span class="op">$</span>group
 <span class="co"># compute beta dispersion of the 3 groups</span>
-betaM &lt;-<span class="st"> </span><span class="kw">betadisper</span>(dM,gO)
+betaM &lt;-<span class="st"> </span><span class="kw">betadisper</span>(dM, gO)
 <span class="co"># statistical test for homogeneous dispersion</span>
 <span class="kw">permutest</span>(betaM)</code></pre></div>
 <pre><code>## 
@@ -333,11 +334,11 @@ betaM &lt;-<span class="st"> </span><span class="kw">betadisper</span>(dM,gO)
 ## 
 ## Response: Distances
 ##           Df   Sum Sq   Mean Sq      F N.Perm Pr(&gt;F)
-## Groups     2 0.002086 0.0010430 0.1771    999  0.829
+## Groups     2 0.002086 0.0010430 0.1771    999   0.84
 ## Residuals  9 0.053012 0.0058903</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visual check for homogeneous dispersion</span>
-<span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">group=</span>betaM<span class="op">$</span>group,<span class="dt">distance=</span>betaM<span class="op">$</span>distances),
-       <span class="kw">aes</span>(<span class="dt">x=</span>group,<span class="dt">fill=</span>group,<span class="dt">y=</span>distance))<span class="op">+</span>
+<span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">group =</span> betaM<span class="op">$</span>group, <span class="dt">distance =</span> betaM<span class="op">$</span>distances), 
+       <span class="kw">aes</span>(<span class="dt">x =</span> group, <span class="dt">fill =</span> group, <span class="dt">y =</span> distance))<span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Beta dispersion&#39;</span>)<span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
@@ -361,21 +362,21 @@ betaM &lt;-<span class="st"> </span><span class="kw">betadisper</span>(dM,gO)
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>A last thing we might want to do, is to get an overview over the Permutation Results from our PERMANOVA. We can compare our real case to the distribution created by the permutations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_clr &lt;-<span class="st"> </span><span class="kw">rgb</span>(<span class="dv">1</span>,.<span class="dv">5</span>,<span class="dv">0</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_clr &lt;-<span class="st"> </span><span class="kw">rgb</span>(<span class="dv">1</span>, .<span class="dv">5</span>, <span class="dv">0</span>)
 <span class="co"># export the summary statistics from the PERMANOVA run</span>
 permOUT &lt;-<span class="st"> </span><span class="kw">permustats</span>(permM)
 <span class="co"># transform into da data.frame</span>
 permDF &lt;-<span class="st"> </span>permOUT<span class="op">$</span>permutations <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setNames</span>(., <span class="dt">nm =</span> <span class="st">&#39;Permutations&#39;</span>)
 
 <span class="co"># plotting</span>
-<span class="kw">ggplot</span>(permDF,<span class="kw">aes</span>(<span class="dt">x=</span>Permutations))<span class="op">+</span>
+<span class="kw">ggplot</span>(permDF, <span class="kw">aes</span>(<span class="dt">x =</span> Permutations))<span class="op">+</span>
 <span class="st">  </span><span class="co"># add the distribution frm the permutations</span>
-<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">fill=</span>plot_clr)<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y=</span><span class="dv">0</span>),<span class="dt">shape=</span><span class="dv">21</span>,<span class="dt">fill=</span><span class="kw">darken</span>(plot_clr,<span class="fl">2.5</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">fill =</span> plot_clr)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> <span class="dv">0</span>), <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">fill =</span> <span class="kw">darken</span>(plot_clr, <span class="fl">2.5</span>))<span class="op">+</span>
 <span class="st">  </span><span class="co"># add our realized value</span>
-<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> permOUT<span class="op">$</span>statistic,<span class="dt">col=</span><span class="kw">darken</span>(plot_clr,<span class="fl">2.5</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> permOUT<span class="op">$</span>statistic, <span class="dt">col =</span> <span class="kw">darken</span>(plot_clr, <span class="fl">2.5</span>))<span class="op">+</span>
 <span class="st">  </span><span class="co"># expand x scale </span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">limits =</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">15</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">15</span>))<span class="op">+</span>
 <span class="st">  </span><span class="co"># plot title</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Permutation test&#39;</span>)<span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>

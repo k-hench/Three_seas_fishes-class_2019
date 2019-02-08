@@ -162,6 +162,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">install.packages</span>(<span class="st">&quot;rnaturalearth&quot;</span>)
 <span class="kw">install.packages</span>(<span class="st">&quot;rnaturalearthdata&quot;</span>)</code></pre></div>
 <hr />
+<p>Following the conventions of the <a href="https://www.tidyverse.org/"><em>tidyverse</em></a>, some aspects that you might be used from base <strong>R</strong> might look a little different:</p>
+<p>First of all, the <em>tidyverse</em> comes with a few functions that replace common standard functions to achieve a more consistent behavior than base <strong>R</strong>. This means that here we will use for example <code>read_delim()</code> (<em>tidyverse</em>) instead of <code>read.table()</code> (base <strong>R</strong>).</p>
+<p>The second thing that migh need some getting used to is the use of <em>the pipe</em> (<code>%&gt;%</code>):</p>
+<p>The pipe is an elegant way of connecting severeal functions that are executed one after the other. If we for example have a silly function that simply addes 1 to an input value, there are several ways to get from 1 to 4:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">add_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x){x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>}
+
+a &lt;-<span class="st"> </span><span class="dv">1</span>
+b &lt;-<span class="st"> </span><span class="kw">add_1</span>(a)
+c &lt;-<span class="st"> </span><span class="kw">add_1</span>(b)
+d &lt;-<span class="st"> </span><span class="kw">add_1</span>(c)
+d</code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">add_1</span>(<span class="kw">add_1</span>(<span class="kw">add_1</span>(<span class="dv">1</span>)))</code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">add_1</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">add_1</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">add_1</span>()</code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>Of these three versions I usually find the pipe to be most clear and easily understandable way (especially if you try to make sense of your code when you come back a little while later).</p>
+<p>Therefore you will see many pipes thoughout the scripts.</p>
+<p>Further <strong>really</strong> useful help on <strong>R</strong> is given by Hadley Wickham in his online book <a href="https://r4ds.had.co.nz/introduction.html">“R for Data Science”</a>.</p>
+<hr />
 <p>Further helpful information on <strong>ggplot2</strong> can be found at:</p>
 <ul>
 <li>the <a href="http://www.cookbook-r.com/Graphs/">R Graphics cook book</a></li>
@@ -169,8 +192,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>this <a href="http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/">page by Zev Ross</a></li>
 </ul>
 <p>Also, this platform of <a href="http://www.ggplot2-exts.org/"><strong>ggplot</strong> extensions</a> is definitively worth a look.</p>
-<hr />
-<p>Further <strong>really</strong> useful help on <strong>R</strong> is given by Hadley Wickham in his online book <a href="https://r4ds.had.co.nz/introduction.html">“R for Data Science”</a>.</p>
 
 </div>
             </section>

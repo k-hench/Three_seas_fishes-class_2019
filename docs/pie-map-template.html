@@ -136,7 +136,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">2</span> Pie map template</h1>
 <p>This template is based on the methods form the <span class="citation">Hench et al. (<a href="#ref-Hench17">2017</a>)</span> paper which compares hamlet observation at Puerto Rico reefs from 2000 (by Aguilar et al. 2003) and from 2017. The data that is used is completely made up though.</p>
 <p>Here we will generate a map of the sampling area including pie charts that represent a species community.</p>
-<p>We will make heavy use of <strong>ggplot2</strong> package and several of its extensions (<strong>ggmap</strong>,<strong>scatterpie</strong>,<strong>cowplot</strong>). Further more we will need the <strong>grid</strong> packages and some of the Geo <strong>R</strong> packages: <strong>maps</strong>, <strong>maptools</strong> and <strong>PBSmapping</strong>.</p>
+<p>We will make heavy use of <strong>ggplot2</strong> package and several of its extensions (<strong>ggmap</strong>, <strong>scatterpie</strong>, <strong>cowplot</strong>). Further more we will need the <strong>grid</strong> packages and some of the Geo <strong>R</strong> packages: <strong>sf</strong>, <strong>maptools</strong>, <strong>rnaturalearth</strong> and <strong>rnaturalearthdata</strong>.</p>
 <hr />
 <p>To start our <strong>R</strong> session we have to <strong>load the required R packages</strong> and set up our working environment:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
@@ -151,7 +151,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">source</span>(<span class="st">&#39;pie_map/functions.R&#39;</span>)</code></pre></div>
 <p>Then we have to <strong>read in the data</strong> (provided in the pie_map data folder). The original data contains the observations as well as meta data (sampling location and coordinates):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&#39;pie_map/data/sampling_spots.csv&#39;</span>,<span class="dt">delim =</span> <span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&#39;pie_map/data/sampling_spots.csv&#39;</span>, <span class="dt">delim =</span> <span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">all =</span> spec1 <span class="op">+</span><span class="st"> </span>spec2 <span class="op">+</span><span class="st"> </span>spec3 <span class="op">+</span><span class="st"> </span>spec4)</code></pre></div>
 <table>
 <thead>
@@ -219,67 +219,82 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
-<p>We will now define the limits of our map and read in the detailed shape-file which we got from <a href="http://www.gadm.org/country">gadm.org</a> and copied to the data folder.</p>
-<p>After loading the shape-file, we are going to clip it according to the previously defined map boundaries and reformat it to be compatible with <strong>ggplot2</strong>:</p>
+<p>We will now define the limits of our map and read in the detailed shape-file. This file can be downloaded from <a href="http://www.gadm.org/country">gadm.org</a> and copied to the data folder.</p>
+<p>After the data download the pie_map folder should look like this</p>
+<pre><code>pie_map
+├── data
+│   ├── geography
+│   │   ├── PAN_adm0.dbf
+│   │   ├── PAN_adm0.prj
+│   │   ├── PAN_adm0.sbn
+│   │   ├── PAN_adm0.sbx
+│   │   ├── PAN_adm0.shp
+│   │   ├── PAN_adm0.shx
+│   │   └── README.md
+│   └── sampling_spots.csv
+├── functions.R
+└── README.md</code></pre>
+<p>After loading the shape-file, we are going to clip it according to the previously defined map boundaries:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># setting map boundaries</span>
-xlim =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">82.5</span>,<span class="op">-</span><span class="dv">82</span>); ylim =<span class="st"> </span><span class="kw">c</span>(<span class="fl">9.1</span>,<span class="fl">9.47</span>)
+xlim =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">82.5</span>, <span class="op">-</span><span class="dv">82</span>); ylim =<span class="st"> </span><span class="kw">c</span>(<span class="fl">9.1</span>, <span class="fl">9.47</span>)
 
 <span class="co"># reading in Panama shapefile</span>
 panama &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">st_read</span>(<span class="st">&#39;pie_map/data/geography/PAN_adm0.shp&#39;</span>)
-bb &lt;-<span class="st"> </span><span class="kw">bbox</span>(xlim,ylim)
-panama_cliped &lt;-<span class="st"> </span><span class="kw">st_intersection</span>(bb,panama)
+bb &lt;-<span class="st"> </span><span class="kw">bbox</span>(xlim, ylim)
+panama_cliped &lt;-<span class="st"> </span><span class="kw">st_intersection</span>(bb, panama)
 <span class="co">#reformating shapefile to work with ggplot2</span></code></pre></div>
-<p>Next we will prepare our labels and colors for the pie charts.</p>
+<p>Next we will prepare our labels for the pie charts and set the color for the land masses on the map.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># definig species label for legend</span>
-spec_labs &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="kw">italic</span>(<span class="st">&quot;Spec 1&quot;</span>),<span class="kw">italic</span>(<span class="st">&quot;Spec 2&quot;</span>),<span class="kw">italic</span>(<span class="st">&quot;Spec 3&quot;</span>),<span class="kw">italic</span>(<span class="st">&quot;Spec 4&quot;</span>))
+spec_labs &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="kw">italic</span>(<span class="st">&quot;Spec 1&quot;</span>), <span class="kw">italic</span>(<span class="st">&quot;Spec 2&quot;</span>), <span class="kw">italic</span>(<span class="st">&quot;Spec 3&quot;</span>), <span class="kw">italic</span>(<span class="st">&quot;Spec 4&quot;</span>))
 
 <span class="co"># setting colors for the land mass</span>
-cFILL &lt;-<span class="st"> </span><span class="kw">rgb</span>(.<span class="dv">2</span>,.<span class="dv">2</span>,.<span class="dv">2</span>)</code></pre></div>
+cFILL &lt;-<span class="st"> </span><span class="kw">rgb</span>(.<span class="dv">2</span>, .<span class="dv">2</span>, .<span class="dv">2</span>)</code></pre></div>
 <p>Then we are going to produce the main map:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>()<span class="op">+</span>
 <span class="st">  </span><span class="co"># plot the land mass</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(panama, <span class="dt">mapping =</span> <span class="kw">aes</span>(), <span class="dt">fill =</span> cFILL, <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">xlim=</span>xlim,<span class="dt">ylim=</span>ylim)<span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">xlim =</span> xlim, <span class="dt">ylim =</span> ylim)<span class="op">+</span>
 <span class="st">  </span><span class="co"># plot the pies</span>
-<span class="st">  </span><span class="kw">geom_scatterpie</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Longitude, <span class="dt">y=</span>Latittude, <span class="dt">group=</span>spot, <span class="dt">r=</span><span class="kw">sqrt</span>(all<span class="op">/</span><span class="dv">1250</span>)<span class="op">/</span>pi),
-                  <span class="dt">data=</span>data,
-                  <span class="dt">cols=</span><span class="kw">c</span>(<span class="st">&quot;spec1&quot;</span>,<span class="st">&quot;spec2&quot;</span>,<span class="st">&quot;spec3&quot;</span>,<span class="st">&quot;spec4&quot;</span>),
-                  <span class="dt">color=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">lwd=</span>.<span class="dv">3</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">name=</span><span class="st">&#39;Species&#39;</span>,<span class="dt">label=</span>spec_labs)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_scatterpie</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Longitude, <span class="dt">y =</span> Latittude, <span class="dt">group =</span> spot, <span class="dt">r =</span> <span class="kw">sqrt</span>(all<span class="op">/</span><span class="dv">1250</span>)<span class="op">/</span>pi), 
+                  <span class="dt">data =</span> data, 
+                  <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;spec1&quot;</span>, <span class="st">&quot;spec2&quot;</span>, <span class="st">&quot;spec3&quot;</span>, <span class="st">&quot;spec4&quot;</span>), 
+                  <span class="dt">color =</span> <span class="kw">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">lwd =</span> .<span class="dv">3</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">name =</span> <span class="st">&#39;Species&#39;</span>, <span class="dt">label =</span> spec_labs)<span class="op">+</span>
 <span class="st">  </span><span class="co"># add points to the exact sampling points</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>data,<span class="kw">aes</span>(<span class="dt">x=</span>Longitude,<span class="dt">y=</span>Latittude),<span class="dt">shape=</span><span class="dv">21</span>,<span class="dt">fill=</span><span class="st">&#39;white&#39;</span>,<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span>
-<span class="st">  </span><span class="co"># the lines below adds labels - this will probably look messy,</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> data, <span class="kw">aes</span>(<span class="dt">x =</span> Longitude, <span class="dt">y =</span> Latittude), <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">fill =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">size =</span> <span class="dv">2</span>)<span class="op">+</span>
+<span class="st">  </span><span class="co"># the lines below adds labels - this will probably look messy, </span>
 <span class="st">  </span><span class="co">#but it can be sorted using inkscape or adobe illustrator</span>
-<span class="st">  </span><span class="co"># geom_text(data=data,aes(x=Longitude,y=Latittude,label=spot),size=3)+</span>
+<span class="st">  </span><span class="co"># geom_text(data = data, aes(x = Longitude, y = Latittude, label = spot), size = 3)+</span>
 <span class="st">  </span><span class="co"># add compass</span>
-<span class="st">  </span><span class="kw">geom_north</span>(<span class="dt">xscale =</span> <span class="fl">1.5</span>,<span class="dt">lon =</span> <span class="op">-</span><span class="fl">82.48</span>,<span class="dt">lat =</span> <span class="fl">9.35</span>, <span class="dt">fill=</span><span class="st">&#39;white&#39;</span>,<span class="dt">col=</span><span class="st">&#39;black&#39;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_north</span>(<span class="dt">xscale =</span> <span class="fl">1.5</span>, <span class="dt">lon =</span> <span class="op">-</span><span class="fl">82.48</span>, <span class="dt">lat =</span> <span class="fl">9.35</span>, <span class="dt">fill =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>)<span class="op">+</span>
 <span class="st">  </span><span class="co"># add scale bar</span>
-<span class="st">  </span><span class="kw">scaleBar</span>(<span class="dt">lon =</span> <span class="op">-</span><span class="fl">82.12</span>, <span class="dt">lat =</span> <span class="fl">9.115</span>, <span class="dt">distanceLon =</span> <span class="dv">5</span>, <span class="dt">distanceLat =</span> .<span class="dv">7</span>,
-           <span class="dt">distanceLegend =</span> <span class="op">-</span><span class="dv">1</span>, <span class="dt">dist.unit =</span> <span class="st">&quot;km&quot;</span>, <span class="dt">orientation =</span> F,
-             <span class="dt">rec2.fill =</span> cFILL,<span class="dt">legend.size =</span> <span class="dv">2</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">scaleBar</span>(<span class="dt">lon =</span> <span class="op">-</span><span class="fl">82.12</span>, <span class="dt">lat =</span> <span class="fl">9.115</span>, <span class="dt">distanceLon =</span> <span class="dv">5</span>, <span class="dt">distanceLat =</span> .<span class="dv">7</span>, 
+           <span class="dt">distanceLegend =</span> <span class="op">-</span><span class="dv">1</span>, <span class="dt">dist.unit =</span> <span class="st">&quot;km&quot;</span>, <span class="dt">orientation =</span> F, 
+             <span class="dt">rec2.fill =</span> cFILL, <span class="dt">legend.size =</span> <span class="dv">2</span>)<span class="op">+</span>
 <span class="st">  </span><span class="co"># layout</span>
 <span class="st">  </span><span class="kw">theme_minimal</span>()<span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(.<span class="dv">85</span>,.<span class="dv">85</span>))</code></pre></div>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(.<span class="dv">85</span>, .<span class="dv">85</span>))</code></pre></div>
 <p><img src="pie_map_files/figure-html/unnamed-chunk-6-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Then we are going to create a secondary map to indicate the general position within the Caribbean. First we are going to define the boundaries of the secondary map, than we are going to load the world data (included in <strong>R</strong>), format it for use with <strong>ggplot2</strong> and clip it at the boundaries.</p>
+<p>Then we are going to create a secondary map to indicate the general position within the Caribbean.</p>
+<p>For this, we first are going to define the boundaries of the secondary map and than we are going to load the world data (from the <strong>rnaturalearthdata</strong> package).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># settings for Caribbean overview</span>
-xlimW =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">93</span>,<span class="op">-</span><span class="dv">55</span>); ylimW =<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">24</span>)
+xlimW =<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">93</span>, <span class="op">-</span><span class="dv">55</span>); ylimW =<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">24</span>)
 world &lt;-<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">scale =</span> <span class="st">&quot;medium&quot;</span>, <span class="dt">returnclass =</span> <span class="st">&quot;sf&quot;</span>)
 
 <span class="co"># Caribbean map:</span>
 plot2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> world,<span class="dt">fill =</span> cFILL,<span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">2</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> world, <span class="dt">fill =</span> cFILL, <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, .<span class="dv">2</span>))<span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_sf</span>(<span class="dt">xlim =</span> xlimW, <span class="dt">ylim =</span> ylimW, <span class="dt">datum =</span> <span class="ot">NA</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> data[<span class="dv">1</span>,], <span class="kw">aes</span>(<span class="dt">x =</span> Longitude,<span class="dt">y =</span> Latittude),
-             <span class="dt">fill=</span><span class="kw">rgb</span>(.<span class="dv">9</span>,.<span class="dv">3</span>,.<span class="dv">3</span>),
-             <span class="dt">shape =</span> <span class="dv">22</span>,<span class="dt">size =</span> <span class="dv">5</span>,<span class="dt">col =</span> <span class="st">&#39;black&#39;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> data[<span class="dv">1</span>, ], <span class="kw">aes</span>(<span class="dt">x =</span> Longitude, <span class="dt">y =</span> Latittude), 
+             <span class="dt">fill =</span> <span class="kw">rgb</span>(.<span class="dv">9</span>, .<span class="dv">3</span>, .<span class="dv">3</span>), 
+             <span class="dt">shape =</span> <span class="dv">22</span>, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&#39;black&#39;</span>)<span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_void</span>()<span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill=</span><span class="st">&#39;white&#39;</span>,<span class="dt">color=</span><span class="st">&#39;black&#39;</span>))</code></pre></div>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&#39;white&#39;</span>, <span class="dt">color =</span> <span class="st">&#39;black&#39;</span>))</code></pre></div>
 <p><img src="pie_map_files/figure-html/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Finally, we use the <strong>cowplot</strong> package to combine the two plots:</p>
 <p><img src="pie_map_files/figure-html/unnamed-chunk-9-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>If we want, we can now export the map and tweak last details using inkscape or adobe illustrator:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&#39;pie_map.pdf&#39;</span>,<span class="dt">width =</span> <span class="dv">8</span>,<span class="dt">height =</span> <span class="dv">6</span>,<span class="dt">device=</span>cairo_pdf)</code></pre></div>
+<p>If we want, we can now export the map and tweak last details using inkscape or adobe illustrator (this can be useful if pie charts are overlapping or labels are messy):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&#39;pie_map.pdf&#39;</span>, <span class="dt">width =</span> <span class="dv">8</span>, <span class="dt">height =</span> <span class="dv">6</span>, <span class="dt">device =</span> cairo_pdf)</code></pre></div>
 
 </div>
 <h3> References</h3>
