@@ -25,7 +25,7 @@
 <meta name="author" content="Kosmas Hench">
 
 
-<meta name="date" content="2019-02-07">
+<meta name="date" content="2019-02-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -334,7 +334,7 @@ betaM &lt;-<span class="st"> </span><span class="kw">betadisper</span>(dM, gO)
 ## 
 ## Response: Distances
 ##           Df   Sum Sq   Mean Sq      F N.Perm Pr(&gt;F)
-## Groups     2 0.002086 0.0010430 0.1771    999   0.84
+## Groups     2 0.002086 0.0010430 0.1771    999  0.825
 ## Residuals  9 0.053012 0.0058903</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visual check for homogeneous dispersion</span>
 <span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">group =</span> betaM<span class="op">$</span>group, <span class="dt">distance =</span> betaM<span class="op">$</span>distances), 

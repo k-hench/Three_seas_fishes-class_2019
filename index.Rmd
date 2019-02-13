@@ -72,6 +72,19 @@ Of these three versions I usually find the pipe to be most clear and easily unde
 
 Therefore you will see many pipes thoughout the scripts.
 
+------
+
+This function might help you to turn missing values into zeros:
+
+```{r, eval = FALSE}
+na_to_0 <- function(df){
+  df[is.na(df)] <- 0
+  df
+}
+```
+
+------
+
 Further **really** useful help on **R** is given by Hadley Wickham in his online book ["R for Data Science"](https://r4ds.had.co.nz/introduction.html).
 
 ------

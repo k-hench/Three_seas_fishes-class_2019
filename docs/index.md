@@ -1,7 +1,7 @@
 ---
 title: "3 Seas 37 - Fishes"
 author: "Kosmas Hench"
-date: "2019-02-07"
+date: "2019-02-13"
 documentclass: book
 bibliography: [bibliography.bib]
 biblio-style: apalike
@@ -85,6 +85,20 @@ add_1(add_1(add_1(1)))
 Of these three versions I usually find the pipe to be most clear and easily understandable way (especially if you try to make sense of your code when you come back a little while later).
 
 Therefore you will see many pipes thoughout the scripts.
+
+------
+
+This function might help you to turn missing values into zeros:
+
+
+```r
+na_to_0 <- function(df){
+  df[is.na(df)] <- 0
+  df
+}
+```
+
+------
 
 Further **really** useful help on **R** is given by Hadley Wickham in his online book ["R for Data Science"](https://r4ds.had.co.nz/introduction.html).
 
